@@ -21,6 +21,7 @@ public class Producer {
 		int low = 20;
 		int high = 200;
 		int i = 1;
+		int counter =1;
 		// Configure the Producer
 		Properties configProperties = new Properties();
 		configProperties.put("bootstrap.servers", "localhost:9092");
@@ -42,13 +43,14 @@ public class Producer {
 				String machine_id = RandomStringUtils.randomAlphanumeric(6);
 				int index = r.nextInt(names.length);
 				String machine_names = names[index];
-				String data = machine_names + ","
+				String data = counter+","+machine_names + ","
 						+ temperature;
 				// ProducerRecord<String, String> rec = new
 				// ProducerRecord<String, String>(topicName, data);
 				producer.send(new ProducerRecord<String, String>(topicName,machine_id
 						,data));
 				System.out.println("message sent successfully "+data);
+				counter++;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

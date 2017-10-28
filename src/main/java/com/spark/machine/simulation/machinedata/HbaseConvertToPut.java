@@ -16,9 +16,9 @@ public class HbaseConvertToPut implements PairFunction<Tuple2<String,String>,Imm
 	public Tuple2<ImmutableBytesWritable, Put> call(Tuple2<String, String> arg0)
 			throws Exception {
 		String values[] = arg0._2.split(",");
-		Put p = new Put(Bytes.toBytes(arg0._1));
-		p.addColumn(Bytes.toBytes("data"),Bytes.toBytes("name"), Bytes.toBytes(values[0]));
-		p.addColumn(Bytes.toBytes("data"),Bytes.toBytes("temperature"),Bytes.toBytes(values[1]));
+		Put p = new Put(Bytes.toBytes(values[1]+"|"+values[0]));
+		p.addColumn(Bytes.toBytes("data"),Bytes.toBytes("name"), Bytes.toBytes(values[1]));
+		p.addColumn(Bytes.toBytes("data"),Bytes.toBytes("temperature"),Bytes.toBytes(values[2]));
 		return new Tuple2<ImmutableBytesWritable, Put>(new ImmutableBytesWritable(),p);
 	}
 
